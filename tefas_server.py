@@ -21,6 +21,7 @@ def funds():
             while d.weekday() >= 5:
                 d -= timedelta(days=1)
             df = tefas.fetch(d.strftime("%Y-%m-%d"), columns="info", kind="YAT")
+        df = df.head(10)
         records = df.to_dict(orient="records")
         for r in records:
             for k, v in r.items():
