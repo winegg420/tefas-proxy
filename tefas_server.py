@@ -3,7 +3,6 @@ from pytefas import Crawler
 from datetime import date, timedelta
 
 app = Flask(__name__)
-tefas = Crawler()
 
 def get_last_weekday():
     d = date.today()
@@ -14,6 +13,7 @@ def get_last_weekday():
 @app.route("/tefas/funds")
 def funds():
     try:
+        tefas = Crawler()
         last_day = get_last_weekday()
         df = tefas.fetch(last_day, columns="info", kind="YAT")
         if df.empty:
@@ -35,6 +35,7 @@ def funds():
 @app.route("/tefas/fund/<code>")
 def fund_detail(code):
     try:
+        tefas = Crawler()
         last_day = get_last_weekday()
         df = tefas.fetch(last_day, columns="info", kind="YAT")
         if not df.empty:
